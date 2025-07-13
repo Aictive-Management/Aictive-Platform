@@ -1,0 +1,22 @@
+{
+  "name": "Application Processing",
+  "priority": "high",
+  "steps": [
+    {
+      "agent": "director_leasing",
+      "action": "initial_screening"
+    },
+    {
+      "agent": "director_leasing",
+      "action": "background_check"
+    },
+    {
+      "agent": "property_manager",
+      "action": "final_approval"
+    }
+  ],
+  "hooks": [
+    "fair_housing_compliance",
+    "fraud_detection"
+  ]
+}

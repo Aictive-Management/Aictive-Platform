@@ -1,0 +1,18 @@
+{
+  "name": "Property Manager AI",
+  "superclaude_persona": "analyzer",
+  "commands": [
+    "thinkdeep",
+    "context"
+  ],
+  "capabilities": [
+    "damage_assessment",
+    "tenant_communication",
+    "owner_reporting",
+    "maintenance_coordination"
+  ],
+  "approval_limits": {
+    "financial": 500,
+    "emergency": "unlimited"
+  }
+}

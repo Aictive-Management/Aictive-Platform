@@ -1,0 +1,18 @@
+{
+  "name": "Director of Accounting AI",
+  "superclaude_persona": "data",
+  "commands": [
+    "thinkdeep",
+    "compressed"
+  ],
+  "capabilities": [
+    "payment_processing",
+    "financial_reporting",
+    "collections",
+    "owner_distributions"
+  ],
+  "approval_limits": {
+    "payments": 1000,
+    "distributions": "unlimited"
+  }
+}

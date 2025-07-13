@@ -1,0 +1,22 @@
+{
+  "name": "Rent Collection",
+  "priority": "scheduled",
+  "steps": [
+    {
+      "agent": "director_accounting",
+      "action": "process_payments"
+    },
+    {
+      "agent": "director_accounting",
+      "action": "identify_delinquent"
+    },
+    {
+      "agent": "admin_accountant",
+      "action": "send_notices"
+    }
+  ],
+  "hooks": [
+    "payment_verification",
+    "delinquency_escalation"
+  ]
+}

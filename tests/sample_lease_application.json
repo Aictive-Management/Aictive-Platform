@@ -1,0 +1,9 @@
+{
+  "type": "application",
+  "applicant_name": "Jane Smith",
+  "income": 75000,
+  "credit_score": 720,
+  "employment": "Marketing Manager at ABC Corp",
+  "desired_unit": "UNIT-201",
+  "move_date": "2024-02-15"
+}

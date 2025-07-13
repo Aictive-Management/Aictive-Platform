@@ -1,0 +1,22 @@
+{
+  "name": "Emergency Maintenance",
+  "priority": "immediate",
+  "steps": [
+    {
+      "agent": "property_manager",
+      "action": "assess_emergency"
+    },
+    {
+      "agent": "property_manager",
+      "action": "dispatch_vendor"
+    },
+    {
+      "agent": "property_manager",
+      "action": "notify_all_parties"
+    }
+  ],
+  "hooks": [
+    "emergency_detection",
+    "immediate_response"
+  ]
+}

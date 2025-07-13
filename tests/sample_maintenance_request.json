@@ -1,0 +1,12 @@
+{
+  "type": "maintenance",
+  "description": "Water leak under kitchen sink",
+  "property_id": "PROP-001",
+  "unit_id": "UNIT-101",
+  "tenant_name": "John Doe",
+  "images": [
+    "leak_photo_1.jpg",
+    "leak_photo_2.jpg"
+  ],
+  "reported_at": "2025-07-13T17:28:43.927792"
+}
