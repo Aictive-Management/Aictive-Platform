@@ -1,12 +1,26 @@
 {
   "type": "maintenance",
-  "description": "Water leak under kitchen sink",
-  "property_id": "PROP-001",
+  "property_id": "PROP-123",
   "unit_id": "UNIT-101",
-  "tenant_name": "John Doe",
-  "images": [
+  "tenant_id": "TENANT-001",
+  "tenant_name": "John Smith",
+  "tenant_email": "john.smith@example.com",
+  "description": "Water leak under kitchen sink - water dripping constantly and causing damage to cabinet. Need urgent repair as water is pooling on floor.",
+  "location": {
+    "building": "Building A",
+    "unit": "101",
+    "area": "Kitchen"
+  },
+  "urgency_indicators": {
+    "water_damage": true,
+    "safety_hazard": false,
+    "no_utilities": false,
+    "security_issue": false
+  },
+  "photos": [
     "leak_photo_1.jpg",
-    "leak_photo_2.jpg"
+    "damage_photo_2.jpg"
   ],
-  "reported_at": "2025-07-13T17:28:43.927792"
+  "submitted_at": "2025-01-13T10:30:00Z",
+  "priority": "high"
 }

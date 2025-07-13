@@ -1,9 +1,33 @@
 {
-  "type": "application",
-  "applicant_name": "Jane Smith",
-  "income": 75000,
-  "credit_score": 720,
-  "employment": "Marketing Manager at ABC Corp",
-  "desired_unit": "UNIT-201",
-  "move_date": "2024-02-15"
+  "type": "rental_application",
+  "applicant_name": "Sarah Johnson",
+  "applicant_email": "sarah.johnson@example.com",
+  "phone": "555-0123",
+  "property_interested": "Sunset Vista Apartments - Unit 205",
+  "move_in_date": "2025-02-01",
+  "employment_info": {
+    "employer": "Tech Solutions Inc",
+    "position": "Software Engineer",
+    "annual_income": 85000,
+    "employment_duration": "2 years",
+    "supervisor_name": "Mark Davis",
+    "supervisor_phone": "555-0456"
+  },
+  "references": [
+    {
+      "name": "Previous Landlord - Mike Brown",
+      "phone": "555-0789",
+      "relationship": "Landlord",
+      "duration": "3 years"
+    },
+    {
+      "name": "Jennifer Lee",
+      "phone": "555-0234",
+      "relationship": "Personal Reference",
+      "duration": "5 years"
+    }
+  ],
+  "pets": false,
+  "occupants": 1,
+  "submitted_at": "2025-01-13T14:45:00Z"
 }
