@@ -1,0 +1,1261 @@
+metadata:
+  version: '2.0'
+  created: '2025-01-12'
+  source: System Manuals Conversion
+  description: Comprehensive agent knowledge base derived from property management system manuals
+agents:
+  property_manager:
+    title: Property Manager
+    level: Operational Management
+    reports_to: vp_operations
+    folder_reference: 01. Property Manager
+    responsibilities:
+      resident_management:
+      - Lease violations and compliance
+      - Non-renewal procedures
+      - Tenant notifications
+      - Resident satisfaction
+      owner_relations:
+      - Owner communications
+      - Financial reporting
+      - Property performance updates
+      - Contract terminations
+      vacancy_management:
+      - Advertising coordination
+      - Make-ready oversight
+      - Pricing strategy
+      - Showing coordination
+      maintenance_coordination:
+      - Work order approval
+      - Vendor management
+      - Emergency response
+      - Preventive maintenance
+      financial_oversight:
+      - Budget management
+      - Expense approval
+      - Revenue optimization
+      - Collection oversight
+    authority:
+      approval_limit: 500
+      can_terminate_leases: true
+      can_approve_vendors: false
+      can_modify_procedures: false
+  director_leasing:
+    title: Director of Leasing
+    level: Senior Management
+    reports_to: vp_operations
+    folder_reference: 02. Director of Leasing
+    responsibilities:
+      leasing_operations:
+      - Oversee leasing team
+      - Approve lease terms and concessions
+      - Market analysis and pricing
+      - Occupancy optimization
+      application_processing:
+      - Application criteria management
+      - Fair housing compliance
+      - Approval workflow oversight
+      - Adverse action procedures
+      marketing_strategy:
+      - Marketing campaign development
+      - Online listing management
+      - Lead generation optimization
+      - Conversion rate improvement
+      team_development:
+      - Leasing agent training
+      - Performance management
+      - Process improvement
+      - Quality assurance
+    authority:
+      approval_limit: 5000
+      can_terminate_leases: true
+      can_approve_vendors: true
+      can_modify_procedures: false
+  director_accounting:
+    title: Director of Accounting
+    level: Senior Management
+    reports_to: vp_operations
+    folder_reference: 03. Director of Accounting
+    responsibilities:
+      financial_management:
+      - Financial reporting oversight
+      - Budget preparation and monitoring
+      - Cash flow management
+      - Financial controls implementation
+      owner_accounting:
+      - Owner statement preparation
+      - Distribution processing
+      - Reserve management
+      - Year-end reporting
+      compliance:
+      - Tax compliance
+      - Regulatory reporting
+      - Audit coordination
+      - Internal controls
+      team_oversight:
+      - Accounting team management
+      - Process standardization
+      - System optimization
+      - Training and development
+    authority:
+      approval_limit: 5000
+      can_terminate_leases: true
+      can_approve_vendors: true
+      can_modify_procedures: false
+  leasing_agent:
+    title: Leasing Consultant
+    level: Operational Staff
+    reports_to: leasing_manager
+    folder_reference: 04. Leasing Consultant
+    responsibilities:
+      lead_management:
+      - Respond to inquiries
+      - Schedule showings
+      - Conduct property tours
+      - Follow up with prospects
+      application_processing:
+      - Collect applications
+      - Verify documentation
+      - Process application fees
+      - Communicate decisions
+      customer_service:
+      - Answer prospect questions
+      - Provide property information
+      - Handle objections
+      - Build rapport
+      administrative:
+      - Update availability
+      - Maintain prospect database
+      - Prepare lease documents
+      - Coordinate move-ins
+    authority:
+      approval_limit: 0
+      can_terminate_leases: false
+      can_approve_vendors: false
+      can_modify_procedures: false
+  resident_services_rep:
+    title: Resident Services Coordinator
+    level: Operational Staff
+    reports_to: resident_services_manager
+    folder_reference: 05. Resident Services Coordinator
+    responsibilities:
+      move_in_coordination:
+      - Process new resident paperwork
+      - Conduct move-in inspections
+      - Provide welcome orientation
+      - Set up resident accounts
+      lease_renewals:
+      - Generate renewal offers
+      - Negotiate renewal terms
+      - Process renewal documentation
+      - Update lease agreements
+      move_out_processing:
+      - Schedule move-out inspections
+      - Process notices to vacate
+      - Coordinate unit turns
+      - Handle security deposits
+      resident_relations:
+      - Address resident concerns
+      - Process service requests
+      - Maintain resident files
+      - Coordinate resident events
+    authority:
+      approval_limit: 0
+      can_terminate_leases: false
+      can_approve_vendors: false
+      can_modify_procedures: false
+  vp_operations:
+    title: Vice President of Operations
+    level: Executive
+    reports_to: president
+    folder_reference: 11. VP Property Management
+    responsibilities:
+      strategic_leadership:
+      - Develop operational strategies
+      - Set performance goals
+      - Drive growth initiatives
+      - Ensure profitability
+      team_management:
+      - Oversee all operational departments
+      - Develop leadership team
+      - Performance management
+      - Succession planning
+      process_improvement:
+      - Optimize workflows
+      - Implement best practices
+      - Technology adoption
+      - Quality assurance
+      stakeholder_relations:
+      - Major client relationships
+      - Vendor negotiations
+      - Industry partnerships
+      - Board reporting
+    authority:
+      approval_limit: 50000
+      can_terminate_leases: true
+      can_approve_vendors: true
+      can_modify_procedures: true
+  president:
+    title: President
+    level: Executive
+    reports_to: board_of_directors
+    folder_reference: 13. President
+    responsibilities:
+      company_leadership:
+      - Set company vision and direction
+      - Drive strategic initiatives
+      - Ensure financial performance
+      - Represent company externally
+      business_development:
+      - Major acquisition decisions
+      - Strategic partnerships
+      - Market expansion
+      - Innovation initiatives
+      governance:
+      - Board relations
+      - Regulatory compliance
+      - Risk management
+      - Corporate policies
+      culture_development:
+      - Company culture
+      - Core values enforcement
+      - Leadership development
+      - Employee engagement
+    authority:
+      approval_limit: 50000
+      can_terminate_leases: true
+      can_approve_vendors: true
+      can_modify_procedures: true
+workflows:
+  property_manager_non_renewal:
+    name: Handle tenant non-renewal process
+    owner: property_manager
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Review lease expiration dates
+      description: Review lease expiration dates
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Determine renewal/non-renewal decision
+      description: Determine renewal/non-renewal decision
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Send non-renewal notice (60 days)
+      description: Send non-renewal notice (60 days)
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Document in system
+      description: Document in system
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Coordinate with leasing for replacement
+      description: Coordinate with leasing for replacement
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+  property_manager_owner_termination:
+    name: Process owner management termination
+    owner: property_manager
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Receive termination notice
+      description: Receive termination notice
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Complete termination checklist
+      description: Complete termination checklist
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Transfer security deposits
+      description: Transfer security deposits
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Final financial reconciliation
+      description: Final financial reconciliation
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Property handover
+      description: Property handover
+      assigned_to: property_manager
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+  director_leasing_application_approval:
+    name: Review and approve rental applications
+    owner: director_leasing
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Review application completeness
+      description: Review application completeness
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Verify income and employment
+      description: Verify income and employment
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Check rental history
+      description: Check rental history
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Run credit and background checks
+      description: Run credit and background checks
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Apply scoring matrix
+      description: Apply scoring matrix
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Make approval decision
+      description: Make approval decision
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+      requires_approval: true
+      approval_from: next_level_manager
+    - id: step_7
+      name: Document decision rationale
+      description: Document decision rationale
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+  director_leasing_fair_housing_compliance:
+    name: Ensure fair housing law compliance
+    owner: director_leasing
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Review advertising language
+      description: Review advertising language
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Monitor showing practices
+      description: Monitor showing practices
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Audit application decisions
+      description: Audit application decisions
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Conduct team training
+      description: Conduct team training
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Document compliance efforts
+      description: Document compliance efforts
+      assigned_to: director_leasing
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+  director_accounting_month_end_close:
+    name: Complete monthly financial close
+    owner: director_accounting
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Reconcile all bank accounts
+      description: Reconcile all bank accounts
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Review and post accruals
+      description: Review and post accruals
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Process owner distributions
+      description: Process owner distributions
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Generate financial statements
+      description: Generate financial statements
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Review variance reports
+      description: Review variance reports
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Approve and distribute reports
+      description: Approve and distribute reports
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+  director_accounting_eviction_financial:
+    name: Handle financial aspects of evictions
+    owner: director_accounting
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Calculate total amount owed
+      description: Calculate total amount owed
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Prepare eviction packet
+      description: Prepare eviction packet
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Coordinate with legal
+      description: Coordinate with legal
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Track eviction costs
+      description: Track eviction costs
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Process judgments
+      description: Process judgments
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Set up payment plans if applicable
+      description: Set up payment plans if applicable
+      assigned_to: director_accounting
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+  leasing_agent_showing_process:
+    name: Conduct property showings
+    owner: leasing_agent
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Pre-qualify prospect
+      description: Pre-qualify prospect
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Schedule showing appointment
+      description: Schedule showing appointment
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Prepare unit for showing
+      description: Prepare unit for showing
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Conduct professional tour
+      description: Conduct professional tour
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Highlight property features
+      description: Highlight property features
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Address questions and objections
+      description: Address questions and objections
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+    - id: step_7
+      name: Collect application if interested
+      description: Collect application if interested
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+    - id: step_8
+      name: Follow up within 24 hours
+      description: Follow up within 24 hours
+      assigned_to: leasing_agent
+      timeout: 24 hours
+      dependencies:
+      - step_7
+      outputs:
+      - completion_status
+      - notes
+  resident_services_rep_lease_renewal:
+    name: Process lease renewals
+    owner: resident_services_rep
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Generate renewal notices (90 days out)
+      description: Generate renewal notices (90 days out)
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Calculate renewal rent increase
+      description: Calculate renewal rent increase
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Send renewal offer to resident
+      description: Send renewal offer to resident
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Negotiate terms if needed
+      description: Negotiate terms if needed
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Prepare renewal documentation
+      description: Prepare renewal documentation
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Obtain signatures
+      description: Obtain signatures
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+    - id: step_7
+      name: Update system with new lease terms
+      description: Update system with new lease terms
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+    - id: step_8
+      name: Notify owner of renewal
+      description: Notify owner of renewal
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_7
+      outputs:
+      - completion_status
+      - notes
+  resident_services_rep_move_out_process:
+    name: Handle resident move-outs
+    owner: resident_services_rep
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Receive notice to vacate
+      description: Receive notice to vacate
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Acknowledge receipt to resident
+      description: Acknowledge receipt to resident
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Schedule move-out inspection
+      description: Schedule move-out inspection
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Conduct final walkthrough
+      description: Conduct final walkthrough
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Document property condition
+      description: Document property condition
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Calculate security deposit disposition
+      description: Calculate security deposit disposition
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+    - id: step_7
+      name: Process deposit return/charges
+      description: Process deposit return/charges
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+    - id: step_8
+      name: Close resident account
+      description: Close resident account
+      assigned_to: resident_services_rep
+      timeout: 24 hours
+      dependencies:
+      - step_7
+      outputs:
+      - completion_status
+      - notes
+  vp_operations_strategic_planning:
+    name: Annual strategic planning process
+    owner: vp_operations
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Analyze market conditions
+      description: Analyze market conditions
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Review previous year performance
+      description: Review previous year performance
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Set growth targets
+      description: Set growth targets
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Develop operational strategies
+      description: Develop operational strategies
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Create implementation roadmap
+      description: Create implementation roadmap
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Assign departmental goals
+      description: Assign departmental goals
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+    - id: step_7
+      name: Establish KPIs
+      description: Establish KPIs
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+    - id: step_8
+      name: Monitor and adjust quarterly
+      description: Monitor and adjust quarterly
+      assigned_to: vp_operations
+      timeout: 24 hours
+      dependencies:
+      - step_7
+      outputs:
+      - completion_status
+      - notes
+  president_major_decisions:
+    name: Major business decision process
+    owner: president
+    trigger: manual
+    steps:
+    - id: step_1
+      name: Identify strategic opportunity
+      description: Identify strategic opportunity
+      assigned_to: president
+      timeout: 24 hours
+      dependencies: []
+      outputs:
+      - completion_status
+      - notes
+    - id: step_2
+      name: Conduct due diligence
+      description: Conduct due diligence
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_1
+      outputs:
+      - completion_status
+      - notes
+    - id: step_3
+      name: Financial analysis
+      description: Financial analysis
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_2
+      outputs:
+      - completion_status
+      - notes
+    - id: step_4
+      name: Risk assessment
+      description: Risk assessment
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_3
+      outputs:
+      - completion_status
+      - notes
+    - id: step_5
+      name: Leadership team consultation
+      description: Leadership team consultation
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_4
+      outputs:
+      - completion_status
+      - notes
+    - id: step_6
+      name: Board presentation if required
+      description: Board presentation if required
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_5
+      outputs:
+      - completion_status
+      - notes
+    - id: step_7
+      name: Make final decision
+      description: Make final decision
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_6
+      outputs:
+      - completion_status
+      - notes
+    - id: step_8
+      name: Communicate and implement
+      description: Communicate and implement
+      assigned_to: president
+      timeout: 24 hours
+      dependencies:
+      - step_7
+      outputs:
+      - completion_status
+      - notes
+procedures:
+  property_manager_non_renewal:
+    name: Handle tenant non-renewal process
+    owner: property_manager
+    category: general
+    steps:
+    - Review lease expiration dates
+    - Determine renewal/non-renewal decision
+    - Send non-renewal notice (60 days)
+    - Document in system
+    - Coordinate with leasing for replacement
+    forms_required:
+    - Non-Renewal Notice
+    - Notice to Quit
+    timeline: 60 days before lease expiration
+    approval_required: false
+  property_manager_owner_termination:
+    name: Process owner management termination
+    owner: property_manager
+    category: property_management
+    steps:
+    - Receive termination notice
+    - Complete termination checklist
+    - Transfer security deposits
+    - Final financial reconciliation
+    - Property handover
+    forms_required:
+    - Termination Checklist
+    - Security Deposit Transfer
+    timeline: 30 days
+    approval_required: false
+  director_leasing_application_approval:
+    name: Review and approve rental applications
+    owner: director_leasing
+    category: leasing
+    steps:
+    - Review application completeness
+    - Verify income and employment
+    - Check rental history
+    - Run credit and background checks
+    - Apply scoring matrix
+    - Make approval decision
+    - Document decision rationale
+    forms_required:
+    - Rental Application
+    - Scoring Matrix
+    - Adverse Action Notice
+    timeline: 24-48 hours
+    approval_required: true
+  director_leasing_fair_housing_compliance:
+    name: Ensure fair housing law compliance
+    owner: director_leasing
+    category: general
+    steps:
+    - Review advertising language
+    - Monitor showing practices
+    - Audit application decisions
+    - Conduct team training
+    - Document compliance efforts
+    forms_required:
+    - Fair Housing Checklist
+    timeline: Ongoing
+    approval_required: false
+  director_accounting_month_end_close:
+    name: Complete monthly financial close
+    owner: director_accounting
+    category: financial
+    steps:
+    - Reconcile all bank accounts
+    - Review and post accruals
+    - Process owner distributions
+    - Generate financial statements
+    - Review variance reports
+    - Approve and distribute reports
+    forms_required:
+    - Month-End Checklist
+    - Variance Report
+    timeline: 5 business days
+    approval_required: true
+  director_accounting_eviction_financial:
+    name: Handle financial aspects of evictions
+    owner: director_accounting
+    category: financial
+    steps:
+    - Calculate total amount owed
+    - Prepare eviction packet
+    - Coordinate with legal
+    - Track eviction costs
+    - Process judgments
+    - Set up payment plans if applicable
+    forms_required:
+    - Eviction Cost Sheet
+    - Payment Plan Agreement
+    timeline: As needed
+    approval_required: false
+  leasing_agent_showing_process:
+    name: Conduct property showings
+    owner: leasing_agent
+    category: general
+    steps:
+    - Pre-qualify prospect
+    - Schedule showing appointment
+    - Prepare unit for showing
+    - Conduct professional tour
+    - Highlight property features
+    - Address questions and objections
+    - Collect application if interested
+    - Follow up within 24 hours
+    forms_required:
+    - Showing Checklist
+    - Guest Card
+    timeline: 30-45 minutes per showing
+    approval_required: false
+  resident_services_rep_lease_renewal:
+    name: Process lease renewals
+    owner: resident_services_rep
+    category: leasing
+    steps:
+    - Generate renewal notices (90 days out)
+    - Calculate renewal rent increase
+    - Send renewal offer to resident
+    - Negotiate terms if needed
+    - Prepare renewal documentation
+    - Obtain signatures
+    - Update system with new lease terms
+    - Notify owner of renewal
+    forms_required:
+    - Lease Renewal Form
+    - Renewal Notice
+    timeline: 90-60 days before expiration
+    approval_required: false
+  resident_services_rep_move_out_process:
+    name: Handle resident move-outs
+    owner: resident_services_rep
+    category: general
+    steps:
+    - Receive notice to vacate
+    - Acknowledge receipt to resident
+    - Schedule move-out inspection
+    - Conduct final walkthrough
+    - Document property condition
+    - Calculate security deposit disposition
+    - Process deposit return/charges
+    - Close resident account
+    forms_required:
+    - Notice to Vacate
+    - Move-Out Inspection Form
+    - Security Deposit Disposition
+    timeline: 30 days
+    approval_required: false
+  vp_operations_strategic_planning:
+    name: Annual strategic planning process
+    owner: vp_operations
+    category: general
+    steps:
+    - Analyze market conditions
+    - Review previous year performance
+    - Set growth targets
+    - Develop operational strategies
+    - Create implementation roadmap
+    - Assign departmental goals
+    - Establish KPIs
+    - Monitor and adjust quarterly
+    forms_required:
+    - Strategic Plan Template
+    - KPI Dashboard
+    timeline: Annual with quarterly reviews
+    approval_required: false
+  president_major_decisions:
+    name: Major business decision process
+    owner: president
+    category: general
+    steps:
+    - Identify strategic opportunity
+    - Conduct due diligence
+    - Financial analysis
+    - Risk assessment
+    - Leadership team consultation
+    - Board presentation if required
+    - Make final decision
+    - Communicate and implement
+    forms_required:
+    - Decision Matrix
+    - Board Presentation Template
+    timeline: Varies by decision magnitude
+    approval_required: false
+forms:
+  LEASE-001:
+    name: Residential Lease Agreement
+    category: leasing
+    required_signatures:
+    - tenant
+    - landlord
+    - guarantor_if_applicable
+    retention_period: 7 years
+  MAINT-001:
+    name: Maintenance Request Form
+    category: maintenance
+    required_fields:
+    - unit
+    - issue_description
+    - urgency
+    - contact_info
+    processing_time: 24-48 hours
+  FIN-001:
+    name: Security Deposit Disposition
+    category: financial
+    legal_requirement: true
+    timeline: 30 days from move-out
+approval_hierarchies:
+  standard:
+  - operational_staff
+  - operational_management
+  - senior_management
+  - executive
+  financial:
+  - accountant
+  - accounting_manager
+  - director_accounting
+  - vp_operations
+  - president
+  leasing:
+  - leasing_agent
+  - leasing_manager
+  - director_leasing
+  - vp_operations
+  maintenance:
+  - maintenance_tech
+  - maintenance_supervisor
+  - property_manager
+  - vp_operations
+communication_templates:
+  owner_notices:
+    vacancy_update:
+      subject: Vacancy Update - {property_address}
+      template: Dear {owner_name}, This is to update you on the vacancy status...
+    maintenance_approval:
+      subject: Maintenance Approval Required - {property_address}
+      template: Dear {owner_name}, We need your approval for the following repair...
+  resident_notices:
+    lease_renewal:
+      subject: Lease Renewal Offer - {unit_number}
+      template: Dear {resident_name}, Your lease expires on {expiration_date}...
+    maintenance_update:
+      subject: Maintenance Request Update
+      template: 'Dear {resident_name}, Your maintenance request #{request_id} has been...'

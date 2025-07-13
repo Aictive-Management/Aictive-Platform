@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .dashboard-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6;
+  }
+  
+  .kpi-value {
+    @apply text-3xl font-bold text-gray-900 dark:text-white;
+  }
+  
+  .kpi-label {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+  }
+  
+  .kpi-change {
+    @apply text-sm font-medium;
+  }
+  
+  .kpi-change.positive {
+    @apply text-green-600;
+  }
+  
+  .kpi-change.negative {
+    @apply text-red-600;
+  }
+}

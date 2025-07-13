@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aictive Platform - Advanced Demo with Position Logic</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .position-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .position-btn {
+            padding: 10px 20px;
+            border: 2px solid #3498db;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .position-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        button {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #229954;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+            margin: 5px;
+        }
+        .maintenance { background: #e74c3c; }
+        .payment { background: #f39c12; }
+        .lease { background: #3498db; }
+        .general { background: #95a5a6; }
+        .urgency-high { color: #e74c3c; font-weight: bold; }
+        .urgency-medium { color: #f39c12; font-weight: bold; }
+        .urgency-low { color: #27ae60; font-weight: bold; }
+        .action-list {
+            margin: 10px 0;
+        }
+        .action-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #ecf0f1;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .action-item:hover {
+            background: #d5dbdb;
+        }
+        .action-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        .form-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .form-tag {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .form-tag.selected {
+            background: #2c3e50;
+        }
+        .response-preview {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .permission-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .approval-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .sop-steps {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .sop-step {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏢 Aictive Platform - Advanced Position-Based Demo</h1>
+        <p>Email processing with role-based permissions and SOPs</p>
+    </div>
+
+    <div class="container">
+        <!-- Position Selection -->
+        <div class="panel full-width">
+            <h2>👤 Select Your Position</h2>
+            <div class="position-selector">
+                <div class="position-btn" onclick="selectPosition('property_manager')">Property Manager</div>
+                <div class="position-btn" onclick="selectPosition('assistant_manager')">Assistant Manager</div>
+                <div class="position-btn" onclick="selectPosition('maintenance_supervisor')">Maintenance Supervisor</div>
+                <div class="position-btn" onclick="selectPosition('leasing_agent')">Leasing Agent</div>
+                <div class="position-btn" onclick="selectPosition('accountant')">Accountant</div>
+                <div class="position-btn" onclick="selectPosition('maintenance_tech')">Maintenance Tech</div>
+            </div>
+            <div id="position-info" style="display:none;">
+                <p><strong>Current Position:</strong> <span id="current-position"></span></p>
+                <p><strong>Permissions:</strong> <span id="position-permissions"></span></p>
+            </div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="panel">
+            <h2>📧 Incoming Email</h2>
+            <input type="email" id="sender" placeholder="Sender Email" value="john.doe@apartment.com">
+            <input type="text" id="subject" placeholder="Subject">
+            <textarea id="body" rows="6" placeholder="Email Body"></textarea>
+            <button onclick="processEmail()">🤖 Process Email</button>
+
+            <!-- Quick Examples -->
+            <div style="margin-top: 20px;">
+                <p><strong>Quick Examples:</strong></p>
+                <button onclick="loadExample('emergency')" style="background: #e74c3c;">Emergency Maintenance</button>
+                <button onclick="loadExample('payment')" style="background: #f39c12;">Payment Issue</button>
+                <button onclick="loadExample('lease')" style="background: #3498db;">Lease Request</button>
+            </div>
+        </div>
+
+        <!-- AI Classification -->
+        <div class="panel">
+            <h2>🤖 AI Classification</h2>
+            <div id="classification-result" style="display:none;">
+                <p><strong>Category:</strong> <span id="email-category"></span></p>
+                <p><strong>Urgency:</strong> <span id="email-urgency"></span></p>
+                <p><strong>Department:</strong> <span id="assigned-dept"></span></p>
+                <p><strong>SOP Applied:</strong> <span id="sop-applied"></span></p>
+            </div>
+        </div>
+
+        <!-- Response Options -->
+        <div class="panel full-width" id="response-panel" style="display:none;">
+            <h2>📝 Response Options</h2>
+            
+            <div id="permission-check"></div>
+            
+            <div class="action-list" id="available-actions">
+                <h3>Available Actions:</h3>
+            </div>
+
+            <div class="form-list" id="available-forms">
+                <h3>Available Forms:</h3>
+            </div>
+
+            <div id="sop-guidance" class="sop-steps" style="display:none;">
+                <h3>📋 SOP Steps:</h3>
+                <div id="sop-steps-list"></div>
+            </div>
+
+            <button onclick="generateResponse()">✉️ Generate Response</button>
+        </div>
+
+        <!-- Response Preview -->
+        <div class="panel full-width" id="response-preview-panel" style="display:none;">
+            <h2>✉️ Response Preview</h2>
+            <div class="response-preview" id="response-text"></div>
+            <div id="attachments-list"></div>
+            <button onclick="sendResponse()" style="background: #27ae60;">✅ Send Response</button>
+            <button onclick="requestApproval()" style="background: #e74c3c; display:none;" id="approval-btn">🔒 Request Approval</button>
+        </div>
+    </div>
+
+    <script>
+        // Position permissions matrix
+        const permissions = {
+            property_manager: {
+                name: 'Property Manager',
+                can_approve_maintenance: true,
+                can_approve_payments: true,
+                can_modify_lease: true,
+                can_send_legal_notices: true,
+                can_waive_fees: true,
+                max_approval: 10000
+            },
+            assistant_manager: {
+                name: 'Assistant Manager',
+                can_approve_maintenance: true,
+                can_approve_payments: true,
+                can_modify_lease: false,
+                can_send_legal_notices: false,
+                can_waive_fees: true,
+                max_approval: 5000,
+                requires_approval: 'property_manager'
+            },
+            maintenance_supervisor: {
+                name: 'Maintenance Supervisor',
+                can_approve_maintenance: true,
+                can_schedule_repairs: true,
+                max_approval: 2000
+            },
+            leasing_agent: {
+                name: 'Leasing Agent',
+                can_modify_lease: false,
+                can_schedule_viewings: true,
+                requires_approval: 'leasing_manager'
+            },
+            accountant: {
+                name: 'Accountant',
+                can_approve_payments: true,
+                can_process_refunds: true,
+                max_approval: 1000
+            },
+            maintenance_tech: {
+                name: 'Maintenance Technician',
+                can_schedule_repairs: true,
+                max_approval: 500,
+                requires_approval: 'maintenance_supervisor'
+            }
+        };
+
+        // SOPs
+        const sops = {
+            emergency_maintenance: {
+                name: 'Emergency Maintenance Response',
+                steps: [
+                    '🚨 Acknowledge receipt within 15 minutes',
+                    '📞 Contact tenant for access and details',
+                    '🔧 Dispatch emergency technician immediately',
+                    '📸 Document issue with photos',
+                    '📝 Complete emergency work order',
+                    '✅ Follow up within 24 hours'
+                ]
+            },
+            payment_issue: {
+                name: 'Payment Issue Resolution',
+                steps: [
+                    '📊 Review payment history',
+                    '📞 Contact tenant within 24 hours',
+                    '💳 Offer payment plan options if eligible',
+                    '📄 Send required documentation',
+                    '📅 Set follow-up reminders'
+                ]
+            },
+            lease_renewal: {
+                name: 'Lease Renewal Process',
+                steps: [
+                    '📊 Check tenant payment history',
+                    '💰 Review current market rates',
+                    '📝 Prepare renewal offer',
+                    '✉️ Send renewal documentation',
+                    '📅 Schedule signing appointment'
+                ]
+            }
+        };
+
+        let currentPosition = null;
+        let currentEmail = null;
+        let selectedAction = null;
+        let selectedForms = [];
+
+        function selectPosition(position) {
+            currentPosition = position;
+            document.querySelectorAll('.position-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const info = permissions[position];
+            document.getElementById('position-info').style.display = 'block';
+            document.getElementById('current-position').textContent = info.name;
+            
+            const perms = [];
+            if (info.can_approve_maintenance) perms.push('Approve Maintenance');
+            if (info.can_approve_payments) perms.push('Approve Payments');
+            if (info.can_modify_lease) perms.push('Modify Leases');
+            if (info.can_send_legal_notices) perms.push('Send Legal Notices');
+            if (info.max_approval) perms.push(`Approve up to $${info.max_approval}`);
+            
+            document.getElementById('position-permissions').textContent = perms.join(', ');
+        }
+
+        function loadExample(type) {
+            const examples = {
+                emergency: {
+                    subject: 'URGENT - Water flooding apartment!!!',
+                    body: 'Help! Water is pouring from the ceiling in my bathroom! It\'s flooding everywhere and damaging my belongings. Please send someone immediately! I\'m in unit 405.'
+                },
+                payment: {
+                    subject: 'Request for payment arrangement',
+                    body: 'I\'m having some financial difficulties this month due to reduced work hours. Could we arrange a payment plan for this month\'s rent? I can pay half now and the rest on the 15th.'
+                },
+                lease: {
+                    subject: 'Lease renewal inquiry',
+                    body: 'My lease expires next month and I would like to renew for another year. Could you send me the renewal paperwork? Also, I was wondering if the rent will remain the same.'
+                }
+            };
+            
+            const example = examples[type];
+            document.getElementById('subject').value = example.subject;
+            document.getElementById('body').value = example.body;
+        }
+
+        function processEmail() {
+            if (!currentPosition) {
+                alert('Please select your position first!');
+                return;
+            }
+            
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('body').value;
+            
+            if (!subject || !body) {
+                alert('Please fill in the email subject and body!');
+                return;
+            }
+            
+            // AI Classification
+            const text = (subject + ' ' + body).toLowerCase();
+            let category, urgency, department, sop;
+            
+            if (text.includes('flood') || text.includes('leak') || text.includes('emergency')) {
+                category = 'maintenance';
+                urgency = 'high';
+                department = 'Maintenance';
+                sop = 'emergency_maintenance';
+            } else if (text.includes('payment') || text.includes('rent') || text.includes('pay')) {
+                category = 'payment';
+                urgency = 'medium';
+                department = 'Accounting';
+                sop = 'payment_issue';
+            } else if (text.includes('lease') || text.includes('renew')) {
+                category = 'lease';
+                urgency = 'low';
+                department = 'Leasing';
+                sop = 'lease_renewal';
+            } else {
+                category = 'general';
+                urgency = 'low';
+                department = 'Customer Service';
+                sop = null;
+            }
+            
+            currentEmail = { category, urgency, subject, body, department, sop };
+            
+            // Display classification
+            document.getElementById('classification-result').style.display = 'block';
+            document.getElementById('email-category').innerHTML = `<span class="category-badge ${category}">${category.toUpperCase()}</span>`;
+            document.getElementById('email-urgency').innerHTML = `<span class="urgency-${urgency}">${urgency.toUpperCase()}</span>`;
+            document.getElementById('assigned-dept').textContent = department;
+            document.getElementById('sop-applied').textContent = sop ? sops[sop].name : 'Standard Response';
+            
+            // Show response options based on position
+            showResponseOptions();
+        }
+
+        function showResponseOptions() {
+            const perms = permissions[currentPosition];
+            const category = currentEmail.category;
+            
+            document.getElementById('response-panel').style.display = 'block';
+            
+            // Check permissions
+            let hasPermission = false;
+            let warningMessage = '';
+            
+            if (category === 'maintenance' && perms.can_approve_maintenance) hasPermission = true;
+            else if (category === 'payment' && perms.can_approve_payments) hasPermission = true;
+            else if (category === 'lease' && (perms.can_modify_lease || perms.can_schedule_viewings)) hasPermission = true;
+            else if (category === 'general') hasPermission = true;
+            
+            if (!hasPermission) {
+                warningMessage = `⚠️ You don't have permission to handle ${category} requests. This should be escalated to ${currentEmail.department} department.`;
+            } else if (perms.requires_approval) {
+                warningMessage = `ℹ️ Your response will require approval from ${permissions[perms.requires_approval].name}`;
+            }
+            
+            document.getElementById('permission-check').innerHTML = warningMessage ? 
+                `<div class="permission-warning">${warningMessage}</div>` : '';
+            
+            // Show available actions
+            const actions = getAvailableActions(currentPosition, category);
+            const actionsHtml = actions.map(action => 
+                `<div class="action-item" onclick="selectAction('${action}')">
+                    <span>${action}</span>
+                    <input type="radio" name="action" value="${action}">
+                </div>`
+            ).join('');
+            document.getElementById('available-actions').innerHTML = '<h3>Available Actions:</h3>' + actionsHtml;
+            
+            // Show available forms
+            const forms = getAvailableForms(currentPosition, category);
+            const formsHtml = forms.map(form => 
+                `<span class="form-tag" onclick="toggleForm('${form}')">${form}</span>`
+            ).join('');
+            document.getElementById('available-forms').innerHTML = '<h3>Attach Forms:</h3>' + formsHtml;
+            
+            // Show SOP steps
+            if (currentEmail.sop && sops[currentEmail.sop]) {
+                document.getElementById('sop-guidance').style.display = 'block';
+                const stepsHtml = sops[currentEmail.sop].steps.map(step => 
+                    `<div class="sop-step">${step}</div>`
+                ).join('');
+                document.getElementById('sop-steps-list').innerHTML = stepsHtml;
+            }
+        }
+
+        function getAvailableActions(position, category) {
+            const actions = {
+                maintenance: {
+                    property_manager: ['Approve Emergency Repair', 'Schedule Maintenance', 'Dispatch Technician', 'Request Quote'],
+                    assistant_manager: ['Approve Repair', 'Schedule Maintenance', 'Dispatch Technician'],
+                    maintenance_supervisor: ['Dispatch Technician', 'Schedule Maintenance', 'Create Work Order'],
+                    maintenance_tech: ['Accept Work Order', 'Request Parts', 'Update Status']
+                },
+                payment: {
+                    property_manager: ['Approve Payment Plan', 'Waive Late Fee', 'Send Notice', 'Process Refund'],
+                    assistant_manager: ['Approve Payment Plan', 'Send Reminder'],
+                    accountant: ['Process Payment', 'Send Statement', 'Create Payment Plan']
+                },
+                lease: {
+                    property_manager: ['Approve Renewal', 'Modify Terms', 'Send Offer'],
+                    leasing_agent: ['Send Information', 'Schedule Viewing', 'Request Approval']
+                }
+            };
+            
+            return actions[category]?.[position] || ['Send General Response', 'Forward to Department'];
+        }
+
+        function getAvailableForms(position, category) {
+            const forms = {
+                maintenance: ['Work Order Form', 'Emergency Contact Form', 'Vendor Authorization'],
+                payment: ['Payment Plan Agreement', 'Late Notice', 'Payment Receipt'],
+                lease: ['Lease Renewal Form', 'Rental Application', 'Move-in Checklist']
+            };
+            
+            return forms[category] || ['General Inquiry Form'];
+        }
+
+        function selectAction(action) {
+            selectedAction = action;
+            document.querySelectorAll('.action-item input').forEach(input => {
+                input.checked = input.value === action;
+            });
+        }
+
+        function toggleForm(form) {
+            const index = selectedForms.indexOf(form);
+            if (index > -1) {
+                selectedForms.splice(index, 1);
+            } else {
+                selectedForms.push(form);
+            }
+            
+            document.querySelectorAll('.form-tag').forEach(tag => {
+                if (tag.textContent === form) {
+                    tag.classList.toggle('selected');
+                }
+            });
+        }
+
+        function generateResponse() {
+            if (!selectedAction) {
+                alert('Please select an action first!');
+                return;
+            }
+            
+            const perms = permissions[currentPosition];
+            let responseText = '';
+            
+            // Generate response based on action
+            if (selectedAction === 'Approve Emergency Repair') {
+                responseText = `Dear Tenant,
+
+This is ${perms.name} from ${currentEmail.department} Department.
+
+I have received your emergency maintenance request regarding: ${currentEmail.subject}
+
+IMMEDIATE ACTION TAKEN:
+✓ Emergency work order created: #EM-${Date.now()}
+✓ Technician dispatched - ETA: 30-45 minutes
+✓ ${perms.name} approval granted for emergency repairs
+
+Our emergency maintenance team is on the way. Please ensure someone is available to provide access.
+
+For urgent updates, call our emergency line: (555) 123-4567
+
+Best regards,
+${perms.name}
+${currentEmail.department} Department`;
+            } else if (selectedAction === 'Approve Payment Plan') {
+                responseText = `Dear Tenant,
+
+Thank you for reaching out regarding your payment situation.
+
+I understand unexpected circumstances can arise. I'm approving the following payment arrangement:
+
+PAYMENT PLAN DETAILS:
+• Current Balance: $[AMOUNT]
+• First Payment: 50% by [DATE]
+• Second Payment: 50% by [DATE]
+• Late fees: Waived (one-time courtesy)
+
+Please review and sign the attached Payment Plan Agreement within 48 hours.
+
+Best regards,
+${perms.name}
+${currentEmail.department} Department`;
+            } else {
+                responseText = `Dear Tenant,
+
+Thank you for your email regarding: ${currentEmail.subject}
+
+[Your response here based on ${selectedAction}]
+
+Best regards,
+${perms.name}
+${currentEmail.department} Department`;
+            }
+            
+            // Show response preview
+            document.getElementById('response-preview-panel').style.display = 'block';
+            document.getElementById('response-text').textContent = responseText;
+            
+            // Show attachments
+            if (selectedForms.length > 0) {
+                document.getElementById('attachments-list').innerHTML = 
+                    '<strong>Attachments:</strong> ' + selectedForms.join(', ');
+            }
+            
+            // Show approval button if needed
+            if (perms.requires_approval) {
+                document.getElementById('approval-btn').style.display = 'inline-block';
+            }
+        }
+
+        function sendResponse() {
+            alert('✅ Response sent successfully!\n\nIn a real system, this would:\n- Send the email to the tenant\n- Log the interaction\n- Update the ticket status\n- Notify relevant team members');
+        }
+
+        function requestApproval() {
+            const perms = permissions[currentPosition];
+            alert(`🔒 Approval requested from ${permissions[perms.requires_approval].name}\n\nThey will be notified to review and approve your response.`);
+        }
+    </script>
+</body>
+</html>

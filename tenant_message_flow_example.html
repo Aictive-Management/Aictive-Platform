@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Message to Work Order - Complete Flow</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .flow-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            bottom: -40px;
+            width: 2px;
+            background: #e0e6ed;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-right: 25px;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .code-block {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .api-call {
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .webhook {
+            background: #d1fae5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #065f46;
+            font-weight: 500;
+        }
+        
+        .ai-process {
+            background: #ede9fe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #5b21b6;
+            font-weight: 500;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+        
+        .timeline-item {
+            text-align: center;
+        }
+        
+        .timeline-time {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .timeline-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+        
+        .message-box {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .message-header {
+            font-weight: 600;
+            color: #14532d;
+            margin-bottom: 10px;
+        }
+        
+        .work-order-box {
+            background: #fef3c7;
+            border: 2px solid #fcd34d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .work-order-header {
+            font-weight: 600;
+            color: #78350f;
+            margin-bottom: 10px;
+        }
+        
+        .flow-arrows {
+            text-align: center;
+            font-size: 30px;
+            color: #cbd5e1;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const TenantMessageFlow = () => {
+            return (
+                <div className="container">
+                    <h1 style={{textAlign: 'center', color: '#1a202c', marginBottom: '40px'}}>
+                        Complete Flow: Tenant Message → Work Order Creation
+                    </h1>
+                    
+                    <div className="flow-diagram">
+                        <div className="message-box">
+                            <div className="message-header">📱 Tenant Sends Message in RentVine</div>
+                            <div>
+                                <strong>From:</strong> Sarah Johnson (Unit 204)<br/>
+                                <strong>Message:</strong> "The AC stopped working last night and it's getting really hot in here. 
+                                This is urgent as I have a baby. Please send someone ASAP!"<br/>
+                                <strong>Time:</strong> 10:32 AM
+                            </div>
+                        </div>
+
+                        <div className="flow-arrows">⬇️</div>
+
+                        <div className="step">
+                            <div className="step-number">1</div>
+                            <div className="step-content">
+                                <div className="step-title">RentVine Sends Webhook</div>
+                                <div className="step-description">
+                                    RentVine detects new message and sends <span className="webhook">webhook event</span> to our system
+                                </div>
+                                <div className="code-block">
+{`POST /webhooks/rentvine
+{
+  "event_type": "message.created",
+  "data": {
+    "id": "msg_7842",
+    "tenant_id": "tenant_204",
+    "property_id": "prop_harbor",
+    "unit_id": "unit_204",
+    "content": "The AC stopped working last night...",
+    "timestamp": "2024-01-15T10:32:00Z"
+  }
+}`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">2</div>
+                            <div className="step-content">
+                                <div className="step-title">Our System Receives & Verifies</div>
+                                <div className="step-description">
+                                    Webhook handler verifies signature and routes to message analyzer
+                                </div>
+                                <div className="code-block">
+{`✓ Signature verified using key: dszqtymvoxttkw35yrvisaimwhczpsa0...
+✓ Event parsed: message.created
+✓ Routing to MessageAnalyzer`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">3</div>
+                            <div className="step-content">
+                                <div className="step-title">AI Analyzes Message</div>
+                                <div className="step-description">
+                                    <span className="ai-process">AI swarm analyzes</span> message content to understand intent and urgency
+                                </div>
+                                <div className="code-block">
+{`AI Analysis Results:
+- Intent: maintenance_request
+- Category: HVAC
+- Priority: EMERGENCY (keywords: "urgent", "baby", "ASAP")
+- Location: Unit 204
+- Issue: AC not functioning
+- Confidence: 94%`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">4</div>
+                            <div className="step-content">
+                                <div className="step-title">Fetch Additional Context</div>
+                                <div className="step-description">
+                                    System makes <span className="api-call">API calls</span> to RentVine for more information
+                                </div>
+                                <div className="code-block">
+{`GET /api/tenants/tenant_204
+→ Tenant: Sarah Johnson, Lease current, Payment history: Excellent
+
+GET /api/units/unit_204  
+→ Unit: 2BR/2BA, Last HVAC service: 6 months ago
+
+GET /api/properties/prop_harbor
+→ Property: Harbor View Apartments, PM: John Smith`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">5</div>
+                            <div className="step-content">
+                                <div className="step-title">Create Work Order via API</div>
+                                <div className="step-description">
+                                    System creates work order in RentVine with all gathered information
+                                </div>
+                                <div className="code-block">
+{`POST /api/work-orders
+{
+  "property_id": "prop_harbor",
+  "unit_id": "unit_204",
+  "tenant_id": "tenant_204",
+  "category": "HVAC",
+  "priority": "emergency",
+  "description": "AC not functioning - urgent, tenant has baby",
+  "source": "tenant_message",
+  "source_id": "msg_7842",
+  "internal_notes": "AI Confidence: 94%. Good tenant, prioritize."
+}`}
+                                </div>
+                                <div style={{marginTop: '10px', color: '#059669', fontWeight: 'bold'}}>
+                                    ✓ Work Order WO-8453 created successfully
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">6</div>
+                            <div className="step-content">
+                                <div className="step-title">Trigger External Workflows</div>
+                                <div className="step-description">
+                                    System executes multiple workflows <span className="highlight">outside of RentVine</span>
+                                </div>
+                                <div className="code-block">
+{`Workflows Triggered:
+1. Emergency Dispatch System
+   → Find nearest available HVAC tech
+   → Send immediate dispatch via mobile app
+   → ETA: 45 minutes
+
+2. Tenant Communication
+   → SMS: "Hi Sarah, we received your AC request. Tech dispatched, ETA 45 min"
+   → Email: Detailed confirmation with tech info
+
+3. Property Manager Alert
+   → Slack: "@john Emergency HVAC at Unit 204"
+   → Dashboard: Updated with emergency status
+
+4. Tracking System
+   → GPS tracking enabled for technician
+   → Real-time updates to tenant app`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="step">
+                            <div className="step-number">7</div>
+                            <div className="step-content">
+                                <div className="step-title">Update RentVine with Results</div>
+                                <div className="step-description">
+                                    All external actions are synced back to RentVine via <span className="api-call">API updates</span>
+                                </div>
+                                <div className="code-block">
+{`PUT /api/work-orders/WO-8453
+{
+  "status": "in_progress",
+  "assigned_to": "Mike Chen - HVAC Tech",
+  "scheduled_time": "2024-01-15T11:15:00Z",
+  "notes": "Tenant notified via SMS. Tech en route."
+}
+
+PUT /api/messages/msg_7842
+{
+  "status": "processed",
+  "work_order_id": "WO-8453"
+}`}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="timeline">
+                            <div className="timeline-item">
+                                <div className="timeline-time">10:32</div>
+                                <div className="timeline-label">Message Sent</div>
+                            </div>
+                            <div className="timeline-item">
+                                <div className="timeline-time">10:33</div>
+                                <div className="timeline-label">Work Order Created</div>
+                            </div>
+                            <div className="timeline-item">
+                                <div className="timeline-time">10:34</div>
+                                <div className="timeline-label">Tech Dispatched</div>
+                            </div>
+                            <div className="timeline-item">
+                                <div className="timeline-time">11:15</div>
+                                <div className="timeline-label">Tech Arrives</div>
+                            </div>
+                            <div className="timeline-item">
+                                <div className="timeline-time">12:30</div>
+                                <div className="timeline-label">Issue Resolved</div>
+                            </div>
+                        </div>
+
+                        <div className="work-order-box">
+                            <div className="work-order-header">🔧 Final Work Order in RentVine</div>
+                            <div>
+                                <strong>WO#:</strong> WO-8453<br/>
+                                <strong>Status:</strong> Completed<br/>
+                                <strong>Created:</strong> Via tenant message (automated)<br/>
+                                <strong>Response Time:</strong> 43 minutes<br/>
+                                <strong>Resolution Time:</strong> 1 hour 58 minutes<br/>
+                                <strong>Tenant Satisfaction:</strong> ⭐⭐⭐⭐⭐<br/>
+                                <strong>Cost:</strong> $150 (within emergency budget)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{background: 'white', padding: '30px', borderRadius: '12px', marginTop: '30px'}}>
+                        <h2 style={{color: '#1a202c', marginBottom: '20px'}}>🎯 Key Points</h2>
+                        <ul style={{lineHeight: '2', color: '#4a5568'}}>
+                            <li><strong>No manual intervention required</strong> - Fully automated from message to dispatch</li>
+                            <li><strong>AI understands context</strong> - Detected emergency due to baby mention</li>
+                            <li><strong>External systems coordinated</strong> - SMS, dispatch, GPS tracking all outside RentVine</li>
+                            <li><strong>Everything syncs back</strong> - RentVine stays updated with all actions</li>
+                            <li><strong>Complete audit trail</strong> - Every step logged for compliance</li>
+                            <li><strong>Tenant experience enhanced</strong> - Fast response, real-time updates</li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<TenantMessageFlow />, document.getElementById('root'));
+    </script>
+</body>
+</html>

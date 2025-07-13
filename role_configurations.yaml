@@ -1,0 +1,277 @@
+# Complete 13-Role Configuration for Aictive Platform
+# Each role has specific permissions, KRAs, and SOP access
+
+roles:
+  # Management Roles
+  - role_id: property_manager
+    name: Property Manager
+    department: Management
+    level: 1
+    permissions:
+      - all_operations
+      - financial_approval_unlimited
+      - legal_notices
+      - lease_modifications
+      - staff_management
+    kra:
+      - Overall property NOI (Net Operating Income)
+      - Occupancy rate > 95%
+      - Tenant satisfaction score > 4.5/5
+      - Compliance with all regulations
+      - Staff performance and development
+    can_approve_up_to: unlimited
+    requires_approval_from: null
+    reports_to: regional_manager
+    
+  - role_id: assistant_manager
+    name: Assistant Property Manager
+    department: Management
+    level: 2
+    permissions:
+      - approve_maintenance_up_to_5000
+      - approve_payment_plans
+      - tenant_communications
+      - staff_scheduling
+      - emergency_decisions
+    kra:
+      - Response time < 24 hours
+      - Operational efficiency
+      - Tenant issue resolution rate > 90%
+      - Staff coordination
+    can_approve_up_to: 5000
+    requires_approval_from: property_manager
+    
+  # Maintenance Department
+  - role_id: maintenance_supervisor
+    name: Maintenance Supervisor
+    department: Maintenance
+    level: 2
+    permissions:
+      - approve_work_orders
+      - assign_technicians
+      - vendor_management
+      - parts_ordering_up_to_2000
+      - emergency_dispatch
+    kra:
+      - Work order completion < 48 hours
+      - Preventive maintenance schedule adherence
+      - Cost per unit maintenance
+      - Vendor performance management
+    can_approve_up_to: 2000
+    requires_approval_from: property_manager
+    
+  - role_id: maintenance_tech_lead
+    name: Lead Maintenance Technician
+    department: Maintenance
+    level: 3
+    permissions:
+      - create_work_orders
+      - update_work_status
+      - request_parts_up_to_500
+      - train_junior_techs
+    kra:
+      - First-time fix rate > 85%
+      - Work quality scores
+      - Junior tech mentorship
+    can_approve_up_to: 500
+    requires_approval_from: maintenance_supervisor
+    
+  - role_id: maintenance_tech
+    name: Maintenance Technician
+    department: Maintenance
+    level: 4
+    permissions:
+      - accept_work_orders
+      - update_progress
+      - request_parts_approval
+    kra:
+      - Work orders completed on time
+      - Quality of repairs
+      - Tenant satisfaction with repairs
+    can_approve_up_to: 0
+    requires_approval_from: maintenance_tech_lead
+    
+  # Leasing Department
+  - role_id: leasing_manager
+    name: Leasing Manager
+    department: Leasing
+    level: 2
+    permissions:
+      - approve_applications
+      - set_rental_rates
+      - approve_lease_terms
+      - concession_approval_up_to_1000
+    kra:
+      - Occupancy rate targets
+      - Lease renewal rate > 70%
+      - Average days to lease < 30
+      - Revenue per available unit
+    can_approve_up_to: 1000
+    requires_approval_from: property_manager
+    
+  - role_id: senior_leasing_agent
+    name: Senior Leasing Agent
+    department: Leasing
+    level: 3
+    permissions:
+      - process_applications
+      - show_units
+      - preliminary_approval
+      - small_concessions_up_to_200
+    kra:
+      - Conversion rate > 25%
+      - Tours per week
+      - Application processing time
+      - Customer service scores
+    can_approve_up_to: 200
+    requires_approval_from: leasing_manager
+    
+  - role_id: leasing_agent
+    name: Leasing Agent
+    department: Leasing
+    level: 4
+    permissions:
+      - schedule_tours
+      - collect_applications
+      - provide_information
+    kra:
+      - Number of tours conducted
+      - Lead follow-up rate
+      - Application completion assistance
+    can_approve_up_to: 0
+    requires_approval_from: senior_leasing_agent
+    
+  # Accounting Department
+  - role_id: accounting_manager
+    name: Accounting Manager
+    department: Accounting
+    level: 2
+    permissions:
+      - financial_reporting
+      - approve_refunds
+      - payment_plan_approval
+      - collection_strategies
+    kra:
+      - Collection rate > 98%
+      - Delinquency rate < 2%
+      - Financial reporting accuracy
+      - Audit compliance
+    can_approve_up_to: 10000
+    requires_approval_from: property_manager
+    
+  - role_id: accountant
+    name: Property Accountant
+    department: Accounting
+    level: 3
+    permissions:
+      - process_payments
+      - send_statements
+      - basic_payment_plans
+      - late_fee_waivers_up_to_100
+    kra:
+      - Payment processing accuracy
+      - Resident account reconciliation
+      - Reporting deadlines met
+    can_approve_up_to: 100
+    requires_approval_from: accounting_manager
+    
+  # Customer Service
+  - role_id: resident_services_manager
+    name: Resident Services Manager
+    department: Customer Service
+    level: 2
+    permissions:
+      - handle_escalations
+      - approve_accommodations
+      - policy_exceptions
+      - event_planning
+    kra:
+      - Resident satisfaction scores
+      - Complaint resolution time
+      - Community engagement levels
+      - Retention improvement
+    can_approve_up_to: 1000
+    requires_approval_from: property_manager
+    
+  - role_id: resident_services_rep
+    name: Resident Services Representative
+    department: Customer Service
+    level: 4
+    permissions:
+      - answer_inquiries
+      - schedule_appointments
+      - process_service_requests
+      - update_resident_info
+    kra:
+      - Call response time
+      - First-call resolution rate
+      - Customer satisfaction scores
+    can_approve_up_to: 0
+    requires_approval_from: resident_services_manager
+    
+  # Administrative
+  - role_id: admin_assistant
+    name: Administrative Assistant
+    department: Administration
+    level: 4
+    permissions:
+      - data_entry
+      - filing
+      - appointment_scheduling
+      - basic_correspondence
+    kra:
+      - Data accuracy
+      - Filing system maintenance
+      - Administrative support efficiency
+    can_approve_up_to: 0
+    requires_approval_from: assistant_manager
+
+# SOP Access Matrix
+sop_access:
+  property_manager: [all]
+  assistant_manager: [emergency_response, tenant_relations, maintenance_requests, payment_processing]
+  maintenance_supervisor: [maintenance_all, vendor_management, emergency_response]
+  maintenance_tech_lead: [work_order_execution, safety_protocols]
+  maintenance_tech: [work_order_execution, safety_protocols]
+  leasing_manager: [leasing_all, application_processing, move_in_procedures]
+  senior_leasing_agent: [showing_procedures, application_processing]
+  leasing_agent: [showing_procedures, lead_management]
+  accounting_manager: [financial_all, collection_procedures, payment_processing]
+  accountant: [payment_processing, basic_collections]
+  resident_services_manager: [customer_service_all, complaint_resolution]
+  resident_services_rep: [basic_customer_service, information_requests]
+  admin_assistant: [administrative_procedures, filing_systems]
+
+# Form Access Matrix
+form_access:
+  property_manager: [all]
+  assistant_manager: [work_orders, payment_plans, notices, incident_reports]
+  maintenance_supervisor: [work_orders, vendor_forms, inspection_reports, purchase_orders]
+  maintenance_tech_lead: [work_orders, parts_requests, time_sheets]
+  maintenance_tech: [work_orders, time_sheets]
+  leasing_manager: [lease_agreements, applications, addendums, renewal_offers]
+  senior_leasing_agent: [applications, tour_cards, holding_deposits]
+  leasing_agent: [tour_cards, guest_cards]
+  accounting_manager: [financial_reports, payment_agreements, collection_notices]
+  accountant: [payment_receipts, statements, basic_notices]
+  resident_services_manager: [accommodation_requests, event_forms, satisfaction_surveys]
+  resident_services_rep: [service_requests, basic_forms]
+  admin_assistant: [general_forms, filing_documents]
+
+# Communication Matrix - Who talks to whom
+communication_matrix:
+  emergency_maintenance:
+    flow: [resident, any_role, maintenance_supervisor, maintenance_tech]
+    escalation: [maintenance_supervisor, assistant_manager, property_manager]
+    
+  payment_issues:
+    flow: [resident, resident_services_rep, accountant, accounting_manager]
+    escalation: [accounting_manager, property_manager]
+    
+  lease_inquiries:
+    flow: [prospect, leasing_agent, senior_leasing_agent, leasing_manager]
+    escalation: [leasing_manager, property_manager]
+    
+  complaints:
+    flow: [resident, resident_services_rep, resident_services_manager]
+    escalation: [resident_services_manager, assistant_manager, property_manager]

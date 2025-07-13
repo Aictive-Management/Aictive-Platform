@@ -1,0 +1,389 @@
+# Aictive Platform - Agent Knowledge Base
+# Comprehensive role definitions, procedures, and capabilities
+
+agents:
+  # Executive Level
+  president:
+    title: "President"
+    level: "Executive"
+    approval_limit: "unlimited"
+    reports_to: "Board of Directors"
+    direct_reports: ["vp_operations", "internal_controller"]
+    
+    responsibilities:
+      strategic:
+        - "Set organizational vision and strategy"
+        - "Major investment decisions"
+        - "Board relations and reporting"
+        - "Stakeholder management"
+        - "Crisis management"
+      
+      operational:
+        - "Final approval for major expenditures"
+        - "Policy creation and enforcement"
+        - "Executive team leadership"
+        - "Performance oversight"
+    
+    decision_authority:
+      financial:
+        - "Approve any amount"
+        - "Set budget parameters"
+        - "Authorize major acquisitions"
+      
+      operational:
+        - "Hire/fire senior management"
+        - "Approve strategic initiatives"
+        - "Set organizational policies"
+    
+    workflows:
+      - "strategic_planning"
+      - "crisis_management"
+      - "major_investment_approval"
+      - "executive_reporting"
+    
+    sop_references:
+      - "EXEC-001: Strategic Planning Process"
+      - "EXEC-002: Investment Decision Framework"
+      - "EXEC-003: Crisis Management Protocol"
+    
+    escalation_triggers:
+      - "Investment > $100,000"
+      - "Legal issues"
+      - "Major crisis situations"
+      - "Strategic decisions"
+
+  # Senior Management
+  vp_operations:
+    title: "Vice President of Operations"
+    level: "Senior Management"
+    approval_limit: 0
+    reports_to: "president"
+    direct_reports: ["director_accounting", "director_leasing", "property_manager"]
+    
+    responsibilities:
+      strategic:
+        - "Operational strategy implementation"
+        - "Cross-department coordination"
+        - "Performance management"
+        - "Process optimization"
+      
+      operational:
+        - "Department oversight"
+        - "Budget management"
+        - "Staff development"
+        - "Vendor relations"
+    
+    decision_authority:
+      requires_approval_for:
+        - "All financial decisions"
+        - "Policy changes"
+        - "Staff changes"
+      
+      can_approve:
+        - "Operational procedures"
+        - "Workflow modifications"
+        - "Emergency responses (with President approval)"
+    
+    workflows:
+      - "operational_planning"
+      - "performance_review"
+      - "budget_preparation"
+      - "vendor_management"
+
+  director_accounting:
+    title: "Director of Accounting"
+    level: "Senior Management"
+    approval_limit: 0
+    reports_to: "vp_operations"
+    direct_reports: ["accounting_manager", "accountant"]
+    
+    responsibilities:
+      financial:
+        - "Financial reporting oversight"
+        - "Budget preparation and monitoring"
+        - "Audit coordination"
+        - "Financial compliance"
+      
+      strategic:
+        - "Financial strategy development"
+        - "Risk management"
+        - "Investment analysis"
+        - "Cash flow optimization"
+    
+    workflows:
+      - "financial_reporting"
+      - "budget_approval"
+      - "audit_management"
+      - "compliance_review"
+    
+    sop_references:
+      - "FIN-001: Monthly Financial Reporting"
+      - "FIN-002: Budget Preparation Process"
+      - "FIN-003: Audit Procedures"
+      - "FIN-004: Compliance Checklist"
+
+  # Operational Management
+  property_manager:
+    title: "Property Manager"
+    level: "Operational Management"
+    approval_limit: 0
+    reports_to: "vp_operations"
+    direct_reports: ["assistant_manager", "maintenance_supervisor", "leasing_manager"]
+    
+    responsibilities:
+      property_operations:
+        - "Day-to-day property management"
+        - "Tenant relations"
+        - "Maintenance oversight"
+        - "Occupancy management"
+      
+      financial:
+        - "Property budget management"
+        - "Rent collection oversight"
+        - "Expense control"
+        - "Financial reporting"
+      
+      compliance:
+        - "Regulatory compliance"
+        - "Safety protocols"
+        - "Fair housing compliance"
+        - "Property inspections"
+    
+    workflows:
+      - "tenant_complaint_resolution"
+      - "maintenance_request_processing"
+      - "lease_renewal_management"
+      - "property_inspection"
+    
+    sop_references:
+      - "PM-001: Daily Operations Checklist"
+      - "PM-002: Tenant Communication Standards"
+      - "PM-003: Emergency Response Procedures"
+      - "PM-004: Monthly Reporting Requirements"
+    
+    escalation_triggers:
+      - "Repairs > $500"
+      - "Legal issues"
+      - "Tenant disputes"
+      - "Emergency situations"
+
+  maintenance_supervisor:
+    title: "Maintenance Supervisor"
+    level: "Operational Management"
+    approval_limit: 0
+    reports_to: "property_manager"
+    direct_reports: ["maintenance_tech_lead", "maintenance_tech"]
+    
+    responsibilities:
+      maintenance_operations:
+        - "Maintenance scheduling"
+        - "Work order management"
+        - "Vendor coordination"
+        - "Quality control"
+      
+      staff_management:
+        - "Tech team supervision"
+        - "Training and development"
+        - "Performance monitoring"
+        - "Safety compliance"
+      
+      asset_management:
+        - "Preventive maintenance programs"
+        - "Equipment lifecycle management"
+        - "Inventory control"
+        - "Capital improvement planning"
+    
+    workflows:
+      - "work_order_assignment"
+      - "vendor_selection"
+      - "preventive_maintenance"
+      - "emergency_repair"
+    
+    procedures:
+      emergency_response:
+        - "Assess severity"
+        - "Deploy appropriate resources"
+        - "Communicate with residents"
+        - "Document incident"
+        - "Follow up on completion"
+      
+      vendor_management:
+        - "Verify licensing and insurance"
+        - "Obtain multiple quotes"
+        - "Monitor work quality"
+        - "Process invoices"
+        - "Maintain vendor database"
+
+  # Operational Staff
+  leasing_agent:
+    title: "Leasing Agent"
+    level: "Operational"
+    approval_limit: 0
+    reports_to: "leasing_manager"
+    
+    responsibilities:
+      leasing:
+        - "Show units to prospects"
+        - "Process applications"
+        - "Prepare lease documents"
+        - "Conduct move-in orientations"
+      
+      customer_service:
+        - "Answer prospect inquiries"
+        - "Schedule showings"
+        - "Follow up with prospects"
+        - "Maintain showing records"
+      
+      administrative:
+        - "Update availability"
+        - "Maintain prospect database"
+        - "Prepare marketing materials"
+        - "Market surveys"
+    
+    workflows:
+      - "prospect_showing"
+      - "application_processing"
+      - "lease_preparation"
+      - "move_in_coordination"
+    
+    decision_rules:
+      application_screening:
+        income_requirement: "3x monthly rent"
+        credit_score_minimum: 650
+        background_check: "required"
+        references: "2 required"
+      
+      lease_terms:
+        standard_term: "12 months"
+        security_deposit: "1 month rent"
+        pet_deposit: "$500 refundable"
+        application_fee: "$50"
+
+# Workflow Templates
+workflow_templates:
+  emergency_maintenance:
+    name: "Emergency Maintenance Response"
+    trigger: "emergency_maintenance_request"
+    priority: "urgent"
+    
+    steps:
+      - agent: "maintenance_tech"
+        action: "initial_assessment"
+        timeout: "15 minutes"
+        
+      - agent: "maintenance_tech_lead"
+        action: "severity_evaluation"
+        timeout: "10 minutes"
+        
+      - agent: "maintenance_supervisor"
+        action: "resource_allocation"
+        timeout: "15 minutes"
+        
+      - agent: "property_manager"
+        action: "approval_if_needed"
+        condition: "cost > 500"
+        
+      - agent: "accounting_manager"
+        action: "financial_approval"
+        condition: "cost > 1000"
+    
+    escalation_path:
+      - "maintenance_supervisor"
+      - "property_manager"
+      - "vp_operations"
+      - "president"
+
+  lease_renewal:
+    name: "Lease Renewal Process"
+    trigger: "lease_expiration_60_days"
+    priority: "normal"
+    
+    steps:
+      - agent: "leasing_agent"
+        action: "tenant_contact"
+        timeout: "24 hours"
+        
+      - agent: "leasing_manager"
+        action: "renewal_terms_preparation"
+        timeout: "48 hours"
+        
+      - agent: "property_manager"
+        action: "terms_approval"
+        timeout: "24 hours"
+        
+      - agent: "accounting_manager"
+        action: "rent_increase_validation"
+        condition: "increase > 5%"
+
+# Decision Trees
+decision_trees:
+  maintenance_request:
+    root: "request_type"
+    nodes:
+      emergency:
+        conditions:
+          - "water_leak"
+          - "no_heat"
+          - "no_power"
+          - "security_issue"
+        action: "emergency_workflow"
+        
+      routine:
+        conditions:
+          - "appliance_repair"
+          - "minor_plumbing"
+          - "cosmetic_issues"
+        action: "standard_workflow"
+        
+      preventive:
+        conditions:
+          - "scheduled_maintenance"
+          - "seasonal_service"
+        action: "preventive_workflow"
+
+# Knowledge Articles
+knowledge_base:
+  fair_housing:
+    title: "Fair Housing Compliance"
+    category: "Legal Compliance"
+    content: |
+      All agents must comply with Fair Housing Act requirements:
+      - No discrimination based on protected classes
+      - Equal treatment for all applicants
+      - Reasonable accommodations for disabilities
+      - Proper documentation of all decisions
+    
+    related_agents: ["all"]
+    
+  emergency_procedures:
+    title: "Emergency Response Procedures"
+    category: "Operations"
+    content: |
+      1. Assess immediate safety concerns
+      2. Contact emergency services if needed
+      3. Notify Property Manager immediately
+      4. Document all actions taken
+      5. Follow up with affected residents
+    
+    related_agents: ["maintenance_supervisor", "property_manager"]
+
+# Integration Points
+integrations:
+  rentvine:
+    endpoints:
+      - "GET /properties"
+      - "GET /units"
+      - "POST /workorders"
+      - "GET /tenants"
+    
+    data_mappings:
+      property_id: "external_property_id"
+      unit_number: "unit_code"
+      tenant_id: "resident_id"
+  
+  slack:
+    channels:
+      emergency: "#emergency-response"
+      approvals: "#approval-queue"
+      maintenance: "#maintenance-team"
+      leasing: "#leasing-team"

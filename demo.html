@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aictive Email AI Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .demo-section {
+            margin: 30px 0;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            display: none;
+        }
+        .category {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .maintenance { background: #e74c3c; color: white; }
+        .payment { background: #f39c12; color: white; }
+        .lease { background: #3498db; color: white; }
+        .general { background: #95a5a6; color: white; }
+        .urgency-high { color: #e74c3c; font-weight: bold; }
+        .urgency-medium { color: #f39c12; font-weight: bold; }
+        .urgency-low { color: #27ae60; font-weight: bold; }
+        .example {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .example:hover {
+            background: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Aictive Email AI Demo</h1>
+        <p style="text-align: center; color: #7f8c8d;">See how AI categorizes property management emails!</p>
+        
+        <div class="demo-section">
+            <h2>📧 Try It Out</h2>
+            <input type="email" id="sender" placeholder="Sender Email" value="tenant@example.com">
+            <input type="text" id="subject" placeholder="Email Subject">
+            <textarea id="body" rows="5" placeholder="Email Body"></textarea>
+            <button onclick="classifyEmail()">🤖 Classify Email</button>
+            
+            <div id="result" class="result"></div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>💡 Example Emails (Click to Try)</h2>
+            <div class="example" onclick="loadExample('maintenance')">
+                <strong>🚰 Maintenance Emergency</strong><br>
+                Subject: URGENT - Water leak in bathroom!<br>
+                Body: Water is flooding from under the sink! Please send someone immediately!
+            </div>
+            <div class="example" onclick="loadExample('payment')">
+                <strong>💰 Payment Question</strong><br>
+                Subject: Rent payment question<br>
+                Body: Can I pay my rent in two installments this month? I'm waiting for my paycheck.
+            </div>
+            <div class="example" onclick="loadExample('lease')">
+                <strong>📄 Lease Renewal</strong><br>
+                Subject: Lease renewal request<br>
+                Body: I would like to renew my lease for another year. When can we discuss the terms?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function classifyEmail() {
+            const sender = document.getElementById('sender').value;
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('body').value;
+            
+            if (!subject || !body) {
+                alert('Please fill in the subject and body!');
+                return;
+            }
+            
+            // Simulate AI classification
+            const text = (subject + ' ' + body).toLowerCase();
+            let category, urgency, sentiment;
+            
+            // Determine category
+            if (text.includes('leak') || text.includes('broken') || text.includes('repair') || text.includes('fix')) {
+                category = 'maintenance';
+                urgency = text.includes('urgent') || text.includes('emergency') || text.includes('!') ? 'high' : 'medium';
+            } else if (text.includes('pay') || text.includes('rent') || text.includes('payment')) {
+                category = 'payment';
+                urgency = 'medium';
+            } else if (text.includes('lease') || text.includes('renew') || text.includes('contract')) {
+                category = 'lease';
+                urgency = 'low';
+            } else {
+                category = 'general';
+                urgency = 'low';
+            }
+            
+            // Determine sentiment
+            if (text.includes('urgent') || text.includes('help') || text.includes('please')) {
+                sentiment = '😟 Concerned';
+            } else if (text.includes('thank') || text.includes('appreciate')) {
+                sentiment = '😊 Positive';
+            } else {
+                sentiment = '😐 Neutral';
+            }
+            
+            // Extract keywords
+            const keywords = [];
+            const importantWords = ['leak', 'water', 'broken', 'repair', 'urgent', 'payment', 'rent', 'lease', 'renew'];
+            importantWords.forEach(word => {
+                if (text.includes(word)) keywords.push(word);
+            });
+            
+            // Display results
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <h3>🤖 AI Classification Results</h3>
+                <p><strong>Category:</strong> <span class="category ${category}">${category.toUpperCase()}</span></p>
+                <p><strong>Urgency:</strong> <span class="urgency-${urgency}">${urgency.toUpperCase()}</span></p>
+                <p><strong>Sentiment:</strong> ${sentiment}</p>
+                <p><strong>Keywords Found:</strong> ${keywords.join(', ') || 'None'}</p>
+                <p><strong>Confidence:</strong> 95%</p>
+                <hr>
+                <p><strong>What this means:</strong><br>
+                ${category === 'maintenance' ? '🔧 This needs to be forwarded to the maintenance team.' : ''}
+                ${category === 'payment' ? '💳 This should go to the accounting department.' : ''}
+                ${category === 'lease' ? '📋 This needs to be handled by the leasing office.' : ''}
+                ${urgency === 'high' ? '⚠️ This requires immediate attention!' : ''}
+                </p>
+            `;
+        }
+        
+        function loadExample(type) {
+            const examples = {
+                maintenance: {
+                    subject: 'URGENT - Water leak in bathroom!',
+                    body: 'Water is flooding from under the sink! Please send someone immediately!'
+                },
+                payment: {
+                    subject: 'Rent payment question',
+                    body: 'Can I pay my rent in two installments this month? I\'m waiting for my paycheck.'
+                },
+                lease: {
+                    subject: 'Lease renewal request',
+                    body: 'I would like to renew my lease for another year. When can we discuss the terms?'
+                }
+            };
+            
+            document.getElementById('subject').value = examples[type].subject;
+            document.getElementById('body').value = examples[type].body;
+            classifyEmail();
+        }
+    </script>
+</body>
+</html>

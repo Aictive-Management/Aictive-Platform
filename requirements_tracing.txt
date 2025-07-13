@@ -1,0 +1,24 @@
+# OpenTelemetry Core
+opentelemetry-api==1.20.0
+opentelemetry-sdk==1.20.0
+opentelemetry-instrumentation==0.41b0
+
+# OpenTelemetry Instrumentations
+opentelemetry-instrumentation-fastapi==0.41b0
+opentelemetry-instrumentation-httpx==0.41b0
+opentelemetry-instrumentation-sqlalchemy==0.41b0
+opentelemetry-instrumentation-redis==0.41b0
+opentelemetry-instrumentation-asyncio==0.41b0
+opentelemetry-instrumentation-requests==0.41b0
+
+# OpenTelemetry Exporters
+opentelemetry-exporter-jaeger==1.20.0
+opentelemetry-exporter-prometheus==1.12.0rc1
+
+# OpenTelemetry Propagators
+opentelemetry-propagator-b3==1.20.0
+opentelemetry-propagator-jaeger==1.20.0
+
+# Additional Dependencies
+structlog==23.1.0  # For structured logging with trace correlation
+prometheus-client==0.17.1  # For metrics export
