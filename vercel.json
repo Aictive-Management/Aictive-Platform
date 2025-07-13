@@ -1,0 +1,18 @@
+{
+  "buildCommand": "cd aictive-command-center && npm install && npm run build",
+  "outputDirectory": "aictive-command-center/.next",
+  "framework": "nextjs",
+  "installCommand": "cd aictive-command-center && npm install",
+  "devCommand": "cd aictive-command-center && npm run dev",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ],
+  "functions": {
+    "aictive-command-center/src/app/api/**/*.ts": {
+      "runtime": "@vercel/node"
+    }
+  }
+}
