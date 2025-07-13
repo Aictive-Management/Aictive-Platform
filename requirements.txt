@@ -1,10 +1,35 @@
+# Core dependencies
+python-dotenv==1.0.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# API Framework
 fastapi==0.109.0
 uvicorn[standard]==0.25.0
-httpx==0.24.1
+python-multipart==0.0.6
+
+# AI Services
 anthropic==0.8.1
+openai==1.12.0
+pillow==10.2.0
+numpy==1.26.0
+
+# Database & Storage
 supabase==2.3.0
-pydantic==2.5.3
-python-dotenv==1.0.0
+psycopg2-binary==2.9.9
+
+# Background Jobs
+inngest==0.3.0
+redis==5.0.1
+
+# Search
+meilisearch==0.31.0
+
+# HTTP & Async
+httpx==0.24.1
+aiohttp==3.9.1
+
+# Google APIs
 google-auth==2.25.2
 google-auth-oauthlib==1.2.0
 google-auth-httplib2==0.1.1
@@ -14,14 +39,22 @@ google-api-python-client==2.111.0
 python-jose[cryptography]==3.3.0
 bcrypt==4.1.2
 slowapi==0.1.9
+passlib[bcrypt]==1.7.4
 
 # Testing dependencies
 pytest==7.4.4
 pytest-asyncio==0.21.1
 pytest-cov==4.1.0
-httpx==0.24.1
 
 # Development dependencies
 black==23.12.1
 ruff==0.1.9
 mypy==1.8.0
+
+# Utilities
+pendulum==3.0.0
+orjson==3.9.10
+pyyaml==6.0.1
+
+# Monitoring
+structlog==24.1.0
