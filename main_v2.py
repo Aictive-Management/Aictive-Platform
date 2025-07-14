@@ -33,13 +33,12 @@ app.add_middleware(
 
 # Import our V2 components
 from v2_architecture_integration import AictiveV2Platform
-from superclaude_integration import AictiveSuperClaudeOrchestrator
-from swarm_hooks_integration import PropertyManagementSwarmV2
+from correct_ai_implementation import AictiveAIService, WorkflowCoordinator, DecisionHooks
 
 # Initialize platform
 platform = AictiveV2Platform()
-orchestrator = AictiveSuperClaudeOrchestrator()
-swarm = PropertyManagementSwarmV2()
+ai_service = AictiveAIService()
+coordinator = WorkflowCoordinator()
 
 
 # Request models
@@ -141,9 +140,9 @@ async def ask_agent(query: AgentQuery):
     Ask a specific agent a question using SuperClaude
     """
     try:
-        response = await orchestrator.process_with_superclaude(
+        response = await ai_service.process_request(
             role=query.role,
-            task_type="answer_question",
+            task="answer_question",
             data={
                 "question": query.question,
                 "context": query.context

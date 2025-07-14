@@ -1,6 +1,13 @@
 """
-SuperClaude Integration for Aictive Platform v2
-Leverages all SuperClaude capabilities, personas, and MCP tools
+⚠️ WARNING: THIS FILE CONTAINS A FUNDAMENTAL MISUNDERSTANDING ⚠️
+
+SuperClaude is a DEVELOPMENT TOOL (the interface you use to code).
+It is NOT a runtime feature that your application can use.
+
+This file incorrectly assumes SuperClaude features are available at runtime.
+See correct_ai_implementation.py for the RIGHT way to implement AI agents.
+
+DEPRECATED - DO NOT USE THIS APPROACH
 """
 
 import os
